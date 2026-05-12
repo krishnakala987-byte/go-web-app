@@ -1,0 +1,23 @@
+# Binaries
+*.exe
+*.out
+*.test
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Dependency directories
+vendor/
+
+# IDE files
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vim swap files
+*.swp

@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Body */
+
+body {
+    background-color: #0f172a;
+    color: white;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Header */
+
+header {
+    background-color: #111827;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+/* Navbar */
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #38bdf8;
+}
+
+/* Banner */
+
+.banner {
+    width: 100%;
+}
+
+/* Hero Image */
+
+.hero-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Hero Section */
+
+.hero {
+    text-align: center;
+    padding: 100px 30px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 22px;
+    color: #cbd5e1;
+    max-width: 900px;
+    margin: auto;
+    margin-bottom: 35px;
+}
+
+/* Button */
+
+.btn {
+    background-color: #38bdf8;
+    color: black;
+    padding: 14px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #0ea5e9;
+}
+
+/* Sections */
+
+.section {
+    padding: 80px 60px;
+}
+
+.section h2 {
+    font-size: 42px;
+    color: #38bdf8;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.section p {
+    margin-bottom: 20px;
+    color: #cbd5e1;
+    font-size: 18px;
+}
+
+/* Cards */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 18px;
+    transition: 0.4s;
+    text-align: center;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: #38bdf8;
+    box-shadow: 0px 0px 35px rgba(56, 189, 248, 0.25);
+}
+
+.card h3 {
+    color: #38bdf8;
+    margin-bottom: 18px;
+    font-size: 28px;
+}
+
+.card p {
+    color: #e2e8f0;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.card a {
+    color: #38bdf8;
+    text-decoration: none;
+    transition: 0.3s;
+    word-break: break-word;
+}
+
+.card a:hover {
+    color: #7dd3fc;
+}
+
+/* Contact Hero Section */
+
+.contact-hero {
+    text-align: center;
+    padding: 120px 20px 70px;
+    background: linear-gradient(to bottom, #0f172a, #111827);
+}
+
+.contact-hero h1 {
+    font-size: 70px;
+    color: #38bdf8;
+    margin-bottom: 25px;
+    text-shadow: 0px 0px 25px rgba(56, 189, 248, 0.4);
+}
+
+.contact-hero p {
+    font-size: 24px;
+    color: #cbd5e1;
+    max-width: 900px;
+    margin: auto;
+    line-height: 1.8;
+}
+
+/* Contact Section */
+
+.contact-section {
+    padding: 80px 60px 120px;
+    background: linear-gradient(to bottom, #111827, #0f172a);
+}
+
+/* Footer */
+
+footer {
+    background-color: #111827;
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .section {
+        padding: 60px 25px;
+    }
+
+    .section h2 {
+        font-size: 32px;
+    }
+
+    .contact-hero {
+        padding: 90px 20px 50px;
+    }
+
+    .contact-hero h1 {
+        font-size: 45px;
+    }
+
+    .contact-hero p {
+        font-size: 18px;
+    }
+
+    .contact-section {
+        padding: 60px 20px 90px;
+    }
+
+}
