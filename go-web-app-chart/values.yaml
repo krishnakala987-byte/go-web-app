@@ -1,0 +1,18 @@
+appName: go-web-app
+
+replicaCount: 2
+
+image:
+  repository: krishna2915/go-web-app
+  tag: v2
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+
+ingress:
+  host: go-web-app.local
+
+httpRoute:
+  enabled: false

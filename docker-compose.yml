@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  go-web-app:
+    build: .
+
+    container_name: go-web-container
+
+    ports:
+      - "8080:8080"
+
+    restart: always
