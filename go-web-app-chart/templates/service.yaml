@@ -6,11 +6,12 @@ metadata:
   name: {{ .Values.appName }}-service
 
 spec:
-  type: NodePort
+  type: {{ .Values.service.type }}
 
   selector:
     app: {{ .Values.appName }}
 
   ports:
-    - port: 80
-      targetPort: 8080
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
