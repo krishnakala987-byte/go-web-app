@@ -4,7 +4,7 @@ replicaCount: 2
 
 image:
   repository: krishna2915/go-web-app
-  tag: v2
+  tag: latest
 
 service:
   type: NodePort

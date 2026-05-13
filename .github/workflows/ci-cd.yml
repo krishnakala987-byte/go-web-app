@@ -27,8 +27,8 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t krishna2915/go-web-app:${{ github.sha }} .
+          docker build -t krishna2915/go-web-app:latest .
 
       - name: Push Docker Image
         run: |
-          docker push krishna2915/go-web-app:${{ github.sha }}
+          docker push krishna2915/go-web-app:latest
