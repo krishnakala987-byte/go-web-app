@@ -1,986 +1,358 @@
-# Go Web App DevOps Project
+<div align="center">
 
-A complete end-to-end DevOps implementation of a Go web application using Docker, Kubernetes, Helm, AWS EKS, ArgoCD, GitHub Actions, Prometheus and Grafana.
+#  Go Web App — End-to-End DevOps Project
 
----
+**A production-style Go web application deployed on AWS EKS with full CI/CD, GitOps, and observability**
 
-# Project Overview
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go](https://img.shields.io/badge/Go-Web_App-00ADD8?logo=go&logoColor=white)](https://golang.org/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestrated-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![AWS EKS](https://img.shields.io/badge/AWS-EKS-FF9900?logo=amazonaws&logoColor=white)](https://aws.amazon.com/eks/)
+[![ArgoCD](https://img.shields.io/badge/ArgoCD-GitOps-EF7B4D?logo=argo&logoColor=white)](https://argoproj.github.io/cd/)
+[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=github-actions&logoColor=white)](https://github.com/features/actions)
 
-This project started as a simple Go portfolio web application and was gradually upgraded step-by-step into a complete production-style DevOps deployment.
+*From a simple Go app to a fully automated cloud-native deployment — step by step.*
 
-Instead of only deploying a container manually, the goal was to learn and implement:
-
-* Containerization
-* Kubernetes orchestration
-* Helm packaging
-* AWS EKS cluster management
-* Monitoring
-* GitOps
-* CI/CD automation
-* Real production-style deployment workflow
-
-This project helped me understand how modern DevOps teams build, deploy, monitor and manage applications in real cloud environments.
+</div>
 
 ---
 
-# Technologies Used
+##  Overview
 
-| Tool / Service | Purpose                       |
-| -------------- | ----------------------------- |
-| Go             | Backend web application       |
-| HTML/CSS       | Frontend portfolio pages      |
-| Docker         | Containerization              |
-| DockerHub      | Image registry                |
-| Kubernetes     | Container orchestration       |
-| Helm           | Kubernetes package management |
-| AWS EKS        | Managed Kubernetes cluster    |
-| kubectl        | Kubernetes CLI                |
-| eksctl         | EKS cluster management        |
-| ArgoCD         | GitOps continuous deployment  |
-| GitHub Actions | CI/CD automation              |
-| Prometheus     | Monitoring                    |
-| Grafana        | Visualization and dashboards  |
-| VS Code        | Development environment       |
-| Ubuntu WSL     | Linux terminal environment    |
-| Git & GitHub   | Version control               |
+This project takes a Go portfolio web application and evolves it into a **complete production-grade DevOps pipeline** — covering every layer a modern cloud team uses: containerization, Kubernetes orchestration, Helm packaging, managed cloud infrastructure on AWS EKS, GitOps with ArgoCD, automated CI/CD via GitHub Actions, and full observability with Prometheus and Grafana.
 
 ---
 
-# Complete Project Journey
+##  Architecture
 
-# Phase 1 — Building the Application
-
-The project started with creating a simple portfolio web application using Go.
-
-Files created:
-
-```text
-main.go
-static/
-├── home.html
-├── about.html
-├── projects.html
-├── contact.html
-└── style.css
 ```
-
-Goal:
-
-* Learn Go basics
-* Understand serving static files
-* Build a simple real project instead of only tutorials
-
-Command used:
-
-```bash
-go run main.go
-```
-
-Purpose:
-
-Runs the Go application locally.
-
----
-
-# Phase 2 — Docker Containerization
-
-After the application worked locally, the next step was containerization.
-
-A Dockerfile was created.
-
-Purpose:
-
-* Package application with dependencies
-* Run consistently on any machine
-* Prepare for Kubernetes deployment
-
-Important commands:
-
-```bash
-docker build -t krishna2915/go-web-app:latest .
-```
-
-Purpose:
-
-Builds Docker image from Dockerfile.
-
----
-
-```bash
-docker images
-```
-
-Purpose:
-
-Lists available Docker images.
-
----
-
-```bash
-docker run -p 8080:8080 krishna2915/go-web-app:latest
-```
-
-Purpose:
-
-Runs container locally.
-
----
-
-```bash
-docker ps
-```
-
-Purpose:
-
-Shows running containers.
-
----
-
-# Phase 3 — DockerHub Integration
-
-The image was pushed to DockerHub.
-
-Purpose:
-
-* Store images remotely
-* Allow Kubernetes to pull images
-* Enable CI/CD automation later
-
-Commands:
-
-```bash
-docker login
-```
-
-Purpose:
-
-Authenticate DockerHub.
-
----
-
-```bash
-docker push krishna2915/go-web-app:latest
-```
-
-Purpose:
-
-Push Docker image to DockerHub.
-
----
-
-# Phase 4 — Kubernetes Deployment
-
-Kubernetes manifests were created manually.
-
-Files created:
-
-```text
-k8s/
-├── deployment.yaml
-├── service.yaml
-└── ingress.yaml
-```
-
-What I learned:
-
-* Deployments manage pods
-* Services expose applications
-* Ingress manages routing
-* Kubernetes desired state model
-
-Commands used:
-
-```bash
-kubectl apply -f deployment.yaml
-```
-
-Purpose:
-
-Creates Kubernetes deployment.
-
----
-
-```bash
-kubectl apply -f service.yaml
-```
-
-Purpose:
-
-Creates Kubernetes service.
-
----
-
-```bash
-kubectl get pods
-```
-
-Purpose:
-
-Checks pod status.
-
----
-
-```bash
-kubectl get svc
-```
-
-Purpose:
-
-Checks services and external access.
-
----
-
-```bash
-kubectl describe pod <pod-name>
-```
-
-Purpose:
-
-Troubleshoot pod issues.
-
----
-
-```bash
-kubectl logs <pod-name>
-```
-
-Purpose:
-
-View application logs.
-
----
-
-# Phase 5 — Helm Implementation
-
-The project was upgraded from raw YAML files to Helm charts.
-
-Helm structure:
-
-```text
-go-web-app-chart/
-├── Chart.yaml
-├── values.yaml
-└── templates/
-```
-
-Why Helm was used:
-
-* Better Kubernetes management
-* Reusable templates
-* Easier upgrades
-* Production standard deployment method
-
-Commands:
-
-```bash
-helm create go-web-app-chart
-```
-
-Purpose:
-
-Creates Helm chart structure.
-
----
-
-```bash
-helm install go-web-app ./go-web-app-chart
-```
-
-Purpose:
-
-Installs Helm chart into Kubernetes.
-
----
-
-```bash
-helm upgrade go-web-app ./go-web-app-chart
-```
-
-Purpose:
-
-Updates existing Helm deployment.
-
----
-
-# Phase 6 — AWS EKS Cluster Setup
-
-The project was moved from local Kubernetes to AWS EKS.
-
-Why EKS:
-
-* Managed Kubernetes service
-* Real cloud deployment
-* Production-level infrastructure
-* Industry standard
-
-Cluster creation:
-
-```bash
-eksctl create cluster \
---name go-web-app-cluster \
---region us-east-1 \
---nodegroup-name workers \
---node-type t3.small \
---nodes 2
-```
-
-Purpose:
-
-Creates EKS cluster with worker nodes.
-
----
-
-Useful commands:
-
-```bash
-kubectl get nodes
-```
-
-Purpose:
-
-Checks connected Kubernetes worker nodes.
-
----
-
-```bash
-eksctl get nodegroup --cluster go-web-app-cluster --region us-east-1
-```
-
-Purpose:
-
-Checks EKS nodegroups.
-
----
-
-# Scaling Issue Faced
-
-Problem:
-
-Pods stayed in Pending state.
-
-Reason:
-
-Worker nodes were insufficient.
-
-Error observed:
-
-```text
-0/2 nodes are available: Too many pods
-```
-
-Troubleshooting:
-
-* Used kubectl describe pod
-* Checked scheduler events
-* Identified resource limitation
-
-Fix:
-
-Scaled EKS nodegroup.
-
-Command:
-
-```bash
-eksctl scale nodegroup \
---cluster go-web-app-cluster \
---name workers \
---nodes 3 \
---nodes-min 2 \
---nodes-max 3 \
---region us-east-1
-```
-
-Lesson learned:
-
-Always verify worker node capacity when pods remain pending.
-
----
-
-# Phase 7 — Monitoring Setup
-
-Prometheus and Grafana were installed.
-
-Purpose:
-
-* Monitor cluster health
-* Monitor workloads
-* Visualize metrics
-* Learn observability
-
-Commands:
-
-```bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-```
-
-Purpose:
-
-Adds Prometheus Helm repository.
-
----
-
-```bash
-helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
-```
-
-Purpose:
-
-Installs Prometheus and Grafana stack.
-
----
-
-Useful commands:
-
-```bash
-kubectl get pods -n monitoring
-```
-
-```bash
-kubectl get svc -n monitoring
-```
-
----
-
-# Phase 8 — ArgoCD GitOps Setup
-
-ArgoCD was implemented for GitOps deployment.
-
-What is GitOps?
-
-Git becomes the single source of truth.
-
-Instead of manually applying Kubernetes changes:
-
-```bash
-kubectl apply -f deployment.yaml
-```
-
-ArgoCD automatically:
-
-* Detects GitHub changes
-* Syncs cluster state
-* Deploys updates
-* Maintains desired state
-
-This removes manual deployment steps.
-
----
-
-# ArgoCD Installation
-
-Initial installation using manifest created multiple issues.
-
-Problem faced:
-
-* CRD conflicts
-* Metadata ownership issues
-* CrashLoopBackOff
-* Pending pods
-
-Troubleshooting steps:
-
-* Checked logs using:
-
-```bash
-kubectl logs <pod-name> -n argocd
-```
-
-* Described pods:
-
-```bash
-kubectl describe pod <pod-name> -n argocd
-```
-
-* Checked scheduler events
-* Removed conflicting resources
-* Reinstalled ArgoCD properly using Helm
-
-Final successful installation:
-
-```bash
-helm repo add argo https://argoproj.github.io/argo-helm
-```
-
-```bash
-helm repo update
-```
-
-```bash
-kubectl create namespace argocd
-```
-
-```bash
-helm install argocd argo/argo-cd -n argocd
-```
-
----
-
-# Accessing ArgoCD UI
-
-Command:
-
-```bash
-kubectl port-forward service/argocd-server -n argocd 8080:443
-```
-
-Purpose:
-
-Access ArgoCD dashboard locally.
-
-URL:
-
-```text
-http://localhost:8080
-```
-
-Get admin password:
-
-```bash
-kubectl -n argocd get secret argocd-initial-admin-secret \
--o jsonpath="{.data.password}" | base64 -d
-```
-
----
-
-# GitOps Validation
-
-Test performed:
-
-* Modified portfolio text
-* Pushed code to GitHub
-* ArgoCD automatically detected change
-* Application synced automatically
-* Deployment updated without kubectl apply
-
-This confirmed complete GitOps workflow.
-
----
-
-# Phase 9 — GitHub Actions CI/CD
-
-GitHub Actions workflow created:
-
-```text
-.github/workflows/ci-cd.yml
-```
-
-Purpose:
-
-Automate:
-
-* Build
-* Docker image creation
-* DockerHub push
-
-Workflow process:
-
-```text
-Git Push
-↓
-GitHub Actions
-↓
-Docker Build
-↓
-DockerHub Push
-↓
-ArgoCD Detects Change
-↓
-Kubernetes Updates Automatically
-```
-
----
-
-# CI/CD Pipeline Steps
-
-GitHub Actions performed:
-
-* Checkout code
-* Setup Docker Buildx
-* Login to DockerHub
-* Build Docker image
-* Push Docker image
-
-DockerHub credentials stored securely using GitHub Secrets.
-
-Secrets used:
-
-```text
-DOCKER_USERNAME
-DOCKER_PASSWORD
-```
-
----
-
-# GitHub Actions Commands Used
-
-Workflow trigger:
-
-```yaml
-on:
-  push:
-    branches:
-      - main
-```
-
-Purpose:
-
-Runs pipeline automatically on push to main branch.
-
----
-
-# Project Architecture
-
-```text
-Developer
-   ↓
+Developer (git push)
+        │
+        ▼
 GitHub Repository
-   ↓
+        │
+        ▼
 GitHub Actions CI/CD
-   ↓
+(Build → Docker Image → DockerHub Push)
+        │
+        ▼
 DockerHub Registry
-   ↓
-ArgoCD GitOps
-   ↓
+        │
+        ▼
+ArgoCD (GitOps — detects change, auto-syncs)
+        │
+        ▼
 AWS EKS Cluster
-   ↓
-Kubernetes Deployment
-   ↓
+(Kubernetes Deployment + Service + Ingress)
+        │
+        ▼
 Prometheus + Grafana Monitoring
 ```
 
 ---
 
-# Folder Structure
+## 🛠️ Tech Stack
 
-```text
-GO-WEB-APP/
+| Tool / Service | Purpose |
+|---|---|
+| **Go** | Backend web application |
+| **HTML / CSS** | Frontend portfolio pages |
+| **Docker** | Containerization |
+| **DockerHub** | Container image registry |
+| **Kubernetes** | Container orchestration |
+| **Helm** | Kubernetes package management |
+| **AWS EKS** | Managed Kubernetes cluster |
+| **eksctl** | EKS cluster provisioning |
+| **kubectl** | Kubernetes CLI |
+| **ArgoCD** | GitOps continuous deployment |
+| **GitHub Actions** | CI/CD automation |
+| **Prometheus** | Metrics & monitoring |
+| **Grafana** | Visualization & dashboards |
+
+---
+
+##  Project Structure
+
+```
+go-web-app/
 ├── .github/
 │   └── workflows/
-│       └── ci-cd.yml
-├── go-web-app-chart/
+│       └── ci-cd.yml           # GitHub Actions pipeline
+├── go-web-app-chart/            # Helm chart
+│   ├── Chart.yaml
+│   ├── values.yaml
+│   └── templates/
 ├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── ingress.yaml
 ├── static/
+│   ├── home.html
+│   ├── about.html
+│   ├── projects.html
+│   ├── contact.html
+│   └── style.css
 ├── Dockerfile
 ├── docker-compose.yml
 ├── go.mod
 ├── main.go
 ├── main_test.go
-├── README.md
-└── LICENSE
+├── LICENSE
+└── README.md
 ```
 
 ---
 
-# Important Troubleshooting Learned
+##  Getting Started
 
-# 1. Pending Pods
+### Prerequisites
 
-Cause:
-
-Insufficient node resources.
-
-Fix:
-
-Scale nodegroup.
+- [Go](https://golang.org/dl/) 1.21+
+- [Docker](https://docs.docker.com/get-docker/) & DockerHub account
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/intro/install/) v3+
+- [eksctl](https://eksctl.io/)
+- [AWS CLI](https://aws.amazon.com/cli/) — configured with your credentials
+- [ArgoCD CLI](https://argo-cd.readthedocs.io/en/stable/cli_installation/) *(optional)*
 
 ---
 
-# 2. CrashLoopBackOff
-
-Cause:
-
-Incorrect configuration or startup failures.
-
-Commands used:
+### 1. Run Locally
 
 ```bash
-kubectl logs <pod-name>
+git clone https://github.com/krishnakala987-byte/go-web-app.git
+cd go-web-app
+go run main.go
 ```
+
+App runs at `http://localhost:8080`
+
+---
+
+### 2. Build & Run with Docker
 
 ```bash
-kubectl describe pod <pod-name>
+# Build image
+docker build -t krishna2915/go-web-app:latest .
+
+# Run container
+docker run -p 8080:8080 krishna2915/go-web-app:latest
 ```
 
 ---
 
-# 3. Helm Ownership Errors
-
-Cause:
-
-Resources created manually before Helm installation.
-
-Fix:
-
-Delete conflicting resources and reinstall cleanly.
-
----
-
-# 4. ArgoCD Sync Failed
-
-Cause:
-
-Namespace metadata issue.
-
-Fix:
-
-Corrected namespace naming and reapplied sync.
-
----
-
-# Important Kubernetes Commands
+### 3. Push to DockerHub
 
 ```bash
-kubectl get pods
+docker login
+docker push krishna2915/go-web-app:latest
 ```
 
-View pods.
-
 ---
+
+### 4. Provision AWS EKS Cluster
 
 ```bash
-kubectl get svc
+eksctl create cluster \
+  --name go-web-app-cluster \
+  --region us-east-1 \
+  --nodegroup-name workers \
+  --node-type t3.small \
+  --nodes 2
 ```
 
-View services.
-
----
-
-```bash
-kubectl get ingress
-```
-
-View ingress resources.
-
----
-
-```bash
-kubectl get all
-```
-
-View all resources.
-
----
-
-```bash
-kubectl delete pod <pod-name>
-```
-
-Delete pod.
-
----
-
-```bash
-kubectl rollout restart deployment <deployment-name>
-```
-
-Restart deployment.
-
----
-
-```bash
-kubectl describe deployment <deployment-name>
-```
-
-Inspect deployment configuration.
-
----
-
-# Important Docker Commands
-
-```bash
-docker build -t image-name .
-```
-
-Build image.
-
----
-
-```bash
-docker push image-name
-```
-
-Push image.
-
----
-
-```bash
-docker ps
-```
-
-Running containers.
-
----
-
-# Important Helm Commands
-
-```bash
-helm list
-```
-
-View Helm releases.
-
----
-
-```bash
-helm uninstall <release-name>
-```
-
-Remove Helm release.
-
----
-
-# Important ArgoCD Validation
-
-How to verify GitOps is working:
-
-1. Change application text.
-2. Commit and push code.
-3. Watch GitHub Actions succeed.
-4. Open ArgoCD dashboard.
-5. Observe automatic sync.
-6. Refresh LoadBalancer URL.
-7. Verify updated application.
-
----
-
-# How to Find LoadBalancer URL
-
-Command:
-
-```bash
-kubectl get svc
-```
-
-Look for:
-
-```text
-EXTERNAL-IP
-```
-
-Example:
-
-```text
-ad125ef6ad1514d368643f1e88847b3f-1253962898.us-east-1.elb.amazonaws.com
-```
-
----
-
-# Screenshot Guide
-
-# 1. EKS Cluster Proof
-
-Command:
+Verify nodes are ready:
 
 ```bash
 kubectl get nodes
 ```
 
-Take screenshot of worker nodes.
-
 ---
 
-# 2. Kubernetes Pods
-
-Command:
+### 5. Deploy with Helm
 
 ```bash
-kubectl get pods -A
+# Install
+helm install go-web-app ./go-web-app-chart
+
+# Upgrade (after changes)
+helm upgrade go-web-app ./go-web-app-chart
 ```
 
-Take screenshot of running pods.
-
 ---
 
-# 3. ArgoCD Sync
+### 6. Install Monitoring (Prometheus + Grafana)
 
-Open:
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
 
-```text
-http://localhost:8080
+helm install monitoring prometheus-community/kube-prometheus-stack \
+  -n monitoring --create-namespace
 ```
 
-Take screenshot showing:
+Check stack is running:
 
-* Synced
-* Healthy
-* Deployment tree
-
----
-
-# 4. GitHub Actions Success
-
-Open:
-
-```text
-GitHub → Actions
+```bash
+kubectl get pods -n monitoring
+kubectl get svc -n monitoring
 ```
 
-Take screenshot showing green successful workflow.
+---
+
+### 7. Install ArgoCD (GitOps)
+
+```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+
+kubectl create namespace argocd
+helm install argocd argo/argo-cd -n argocd
+```
+
+Access the ArgoCD dashboard:
+
+```bash
+kubectl port-forward service/argocd-server -n argocd 8080:443
+```
+
+Open `http://localhost:8080` — get the admin password:
+
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath="{.data.password}" | base64 -d
+```
 
 ---
 
-# 5. Monitoring Dashboard
+##  CI/CD Pipeline
 
-Open Grafana dashboard and capture:
+The GitHub Actions workflow at `.github/workflows/ci-cd.yml` triggers on every push to `main`:
 
-* CPU metrics
-* Node metrics
-* Cluster metrics
+```
+git push → main
+       │
+       ▼
+GitHub Actions
+  ├── Checkout code
+  ├── Setup Docker Buildx
+  ├── Login to DockerHub (via GitHub Secrets)
+  ├── Build Docker image
+  └── Push to DockerHub
+       │
+       ▼
+ArgoCD detects new image tag
+       │
+       ▼
+EKS cluster auto-updated (no kubectl apply needed)
+```
 
----
+**Required GitHub Secrets:**
 
-# 6. Live Website
-
-Open LoadBalancer URL and take screenshot.
-
----
-
-# Key Lessons Learned
-
-* Kubernetes troubleshooting is very important.
-* Monitoring is essential in production.
-* GitOps removes manual deployment steps.
-* CI/CD automation saves time and reduces errors.
-* Helm simplifies Kubernetes management.
-* Cloud infrastructure requires proper scaling.
-* Logs and describe commands are critical for debugging.
-
----
-
-# Future Improvements
-
-Possible future upgrades:
-
-* Terraform infrastructure provisioning
-* HTTPS with cert-manager
-* Horizontal Pod Autoscaler
-* AWS Load Balancer Controller
-* Loki logging stack
-* SonarQube code analysis
-* Multi-environment deployments
+| Secret | Description |
+|---|---|
+| `DOCKER_USERNAME` | Your DockerHub username |
+| `DOCKER_PASSWORD` | Your DockerHub password or token |
 
 ---
 
-# Final Outcome
+##  GitOps Validation
 
-This project evolved from a simple Go application into a complete production-style DevOps implementation.
+To verify the full GitOps loop is working:
 
-It includes:
-
-* Cloud deployment
-* Kubernetes orchestration
-* Monitoring
-* GitOps
-* CI/CD automation
-* Automated deployments
-* Production-style architecture
-
-This project significantly improved my understanding of real-world DevOps workflows and modern cloud-native deployment practices.
+1. Edit any text in `static/home.html`
+2. Commit and push to `main`
+3. Watch GitHub Actions complete successfully
+4. Open ArgoCD dashboard → observe auto-sync
+5. Get the LoadBalancer URL: `kubectl get svc`
+6. Refresh the app URL — changes are live
 
 ---
 
-# Author
+##  Access Live App
 
-Krishna Kala
+```bash
+kubectl get svc
+```
 
-Cloud & DevOps Engineer
+Look for the `EXTERNAL-IP` field — this is your LoadBalancer URL:
+
+```
+ad125ef6...us-east-1.elb.amazonaws.com
+```
+
+---
+
+##  Troubleshooting
+
+| Problem | Cause | Fix |
+|---|---|---|
+| Pods stuck in `Pending` | Insufficient node capacity | Scale the nodegroup (see below) |
+| `CrashLoopBackOff` | Bad config or startup error | Check `kubectl logs <pod>` and `kubectl describe pod <pod>` |
+| Helm ownership errors | Resources created manually before Helm | Delete conflicting resources, reinstall cleanly |
+| ArgoCD sync failed | Namespace metadata mismatch | Correct namespace name and re-sync |
+
+**Scale EKS nodegroup (fix for Pending pods):**
+
+```bash
+eksctl scale nodegroup \
+  --cluster go-web-app-cluster \
+  --name workers \
+  --nodes 3 \
+  --nodes-min 2 \
+  --nodes-max 3 \
+  --region us-east-1
+```
+
+**Key debug commands:**
+
+```bash
+kubectl describe pod <pod-name>    # Inspect events & errors
+kubectl logs <pod-name>            # View app logs
+kubectl get all                    # Full resource overview
+kubectl rollout restart deployment <name>   # Force restart
+```
+
+---
+
+##  Roadmap
+
+- [ ] Terraform for full infrastructure provisioning
+- [ ] HTTPS with cert-manager + Let's Encrypt
+- [ ] Horizontal Pod Autoscaler (HPA)
+- [ ] AWS Load Balancer Controller
+- [ ] Loki log aggregation stack
+- [ ] SonarQube code quality analysis
+- [ ] Multi-environment deployments (dev / staging / prod)
+
+---
+
+##  Contributing
+
+1. Fork the repository
+2. Create a feature branch — `git checkout -b feature/your-feature`
+3. Commit your changes — `git commit -m 'feat: add your feature'`
+4. Push — `git push origin feature/your-feature`
+5. Open a Pull Request
+
+---
+
+##  License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+##  Author
+
+**Krishna Kala**  
+*Cloud & DevOps Engineer*
+
+[![GitHub](https://img.shields.io/badge/GitHub-krishnakala987--byte-181717?logo=github)](https://github.com/krishnakala987-byte)
+
+---
+
+<div align="center">
+<sub> If this project helped you, consider giving it a star!</sub>
+</div>
