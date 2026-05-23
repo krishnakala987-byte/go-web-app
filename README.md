@@ -52,7 +52,7 @@ Prometheus + Grafana Monitoring
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Tool / Service | Purpose |
 |---|---|
